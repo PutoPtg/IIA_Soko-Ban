@@ -71,8 +71,8 @@ public abstract class SearchAlgorithm : MonoBehaviour {
 			return BuildActionPath ();
 		} else {
 			Debug.LogWarning ("Solution path can not be determined! Either the algorithm has not finished, or a solution could not be found.");
-			return null;
-		}
+            return null;
+        }
 	}
 
 	// This method should be overriden on each specific search algorithm.
