@@ -10,6 +10,7 @@ public class SearchNode
 	public Action action;
 	public SearchNode parent;
 	public int depth;
+    public float h;       // Para ordenar no pesquisa sofrega
 
 	public SearchNode(object state, float g, Action action=Action.None, SearchNode parent=null)
 	{
@@ -23,6 +24,7 @@ public class SearchNode
 		} else {
 			this.depth = 0;
 		}
+        this.h = 0;
 	}
 
 	public SearchNode(object state, float g, float h, Action action=Action.None, SearchNode parent=null)
@@ -37,6 +39,7 @@ public class SearchNode
 		} else {
 			this.depth = 0;
 		}
+        this.h = h;
 	}
 }
 

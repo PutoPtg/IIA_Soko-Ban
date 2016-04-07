@@ -6,7 +6,6 @@ public class PesquisaSofrega : SearchAlgorithm {
 
     private Map mapa;
     private List<SearchNode> listaSemHeap = new List<SearchNode>();
-    private Stack<SearchNode> stack = new Stack<SearchNode>();
     private HashSet<object> closedSet = new HashSet<object>();
     private List<Vector2> crates = new List<Vector2>();
     private int numCrates;
@@ -18,7 +17,7 @@ public class PesquisaSofrega : SearchAlgorithm {
 
         problem = GameObject.Find("Map").GetComponent<Map>().GetProblem();
         SearchNode start = new SearchNode(problem.GetStartState(), 0);
-        /* Push do nó inicial para a pilha */
+        /* Push do nó inicial para a lista */
         listaSemHeap.Add(start);
     }
 
@@ -29,7 +28,7 @@ public class PesquisaSofrega : SearchAlgorithm {
             // Cur_node é igual ao primeiro elemento da lista
             // Depois é removido
             SearchNode cur_node = listaSemHeap[0];
-            //listaSemHeap.RemoveAt(0);
+            listaSemHeap.RemoveAt(0);
             closedSet.Add(cur_node.state);
 
             if (problem.IsGoal(cur_node.state))
@@ -50,13 +49,45 @@ public class PesquisaSofrega : SearchAlgorithm {
                 }
             }
             // Ordenamento
-            listaSemHeap.Sort();        // Está a dar BODEGA
+            insertionSort();
+            //print();
         }
         else
         {
             finished = true;
             running = false;
         }
+    }
+
+    public void insertionSort()
+    {
+        SearchNode temp;
+        int j;
+
+        for(int i=1; i<listaSemHeap.Count; i++)
+        {
+            temp = listaSemHeap[i];
+            j = i - 1;
+
+            while(j >= 0 && listaSemHeap[j].depth > temp.depth)
+            {
+                listaSemHeap[j + 1] = listaSemHeap[j];
+                j--;
+            }
+            listaSemHeap[j + 1] = temp;
+        }
+
+    }
+
+    // Função para debug
+    public void print()
+    {
+        for(int i=1; i<listaSemHeap.Count; i++)
+        {
+            Debug.LogWarning(listaSemHeap[i].depth);
+        }
+
+        Debug.LogWarning("---------------------");
     }
 }
 
