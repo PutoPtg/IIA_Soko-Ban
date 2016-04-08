@@ -59,6 +59,7 @@ public class PesquisaSofrega : SearchAlgorithm {
         }
     }
 
+    // Ordenar pelo valor de "g" pois é o que mantém o custo atual
     public void insertionSort()
     {
         SearchNode temp;
@@ -69,7 +70,7 @@ public class PesquisaSofrega : SearchAlgorithm {
             temp = listaSemHeap[i];
             j = i - 1;
 
-            while(j >= 0 && listaSemHeap[j].depth > temp.depth)
+            while(j >= 0 && listaSemHeap[j].g > temp.g)
             {
                 listaSemHeap[j + 1] = listaSemHeap[j];
                 j--;
@@ -84,7 +85,7 @@ public class PesquisaSofrega : SearchAlgorithm {
     {
         for(int i=1; i<listaSemHeap.Count; i++)
         {
-            Debug.LogWarning(listaSemHeap[i].depth);
+            Debug.LogWarning(listaSemHeap[i].g);
         }
 
         Debug.LogWarning("---------------------");
